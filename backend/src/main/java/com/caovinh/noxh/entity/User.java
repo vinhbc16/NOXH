@@ -63,6 +63,15 @@ public class User {
     @Column(name = "priority_category")
     String priorityCategory;
 
+    @Column(name = "cccd_front_url", columnDefinition = "TEXT")
+    String cccdFrontUrl;
+
+    @Column(name = "cccd_back_url", columnDefinition = "TEXT")
+    String cccdBackUrl;
+
+    @Column(name = "portrait_url", columnDefinition = "TEXT")
+    String portraitUrl;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default

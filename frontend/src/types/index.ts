@@ -6,12 +6,14 @@ export interface ApiResponse<T> {
 
 export interface AuthResponse {
   accessToken: string
-  refreshToken: string
-  expiresIn: number
+  refreshToken?: string
+  expiresIn?: number
   userId: string
   fullName: string
   email: string
   role: string
+  isVerified: boolean
+  kycStatus: string
 }
 
 export interface UserResponse {
@@ -31,10 +33,27 @@ export interface UserResponse {
   incomePerMonth?: number
   householdSize?: number
   priorityCategory?: string
+  cccdFrontUrl?: string
+  cccdBackUrl?: string
+  portraitUrl?: string
   role: string
   isVerified: boolean
   kycStatus: string
   createdAt: string
+}
+
+export interface FileUploadResponse {
+  url: string
+  fileName: string
+}
+
+export interface UserDocumentResponse {
+  id: string
+  documentType: string
+  fileUrl: string
+  fileName?: string
+  status: string
+  uploadedAt: string
 }
 
 export interface ProjectResponse {

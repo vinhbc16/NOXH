@@ -38,6 +38,12 @@ public class UserService {
         User user = userRepository.findById(UUID.fromString(userId))
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
+        if (request.getCccdNumber() != null
+                && userRepository.existsByCccdNumber(request.getCccdNumber())
+                && !request.getCccdNumber().equals(user.getCccdNumber())) {
+            throw new AppException(ErrorCode.CCCD_EXISTED);
+        }
+
         userMapper.updateUserFromRequest(request, user);
         user = userRepository.save(user);
         return userMapper.toUserResponse(user);
@@ -56,6 +62,9 @@ public class UserService {
         }
 
         userMapper.updateUserFromKycRequest(request, user);
+        user.setCccdFrontUrl(request.getCccdFrontUrl());
+        user.setCccdBackUrl(request.getCccdBackUrl());
+        user.setPortraitUrl(request.getPortraitUrl());
         user.setKycStatus(KycStatus.VERIFIED);
         user.setIsVerified(true);
         user = userRepository.save(user);

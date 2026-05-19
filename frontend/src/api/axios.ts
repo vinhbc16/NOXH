@@ -8,13 +8,11 @@ interface RetryableRequestConfig extends InternalAxiosRequestConfig {
 
 const api = axios.create({
   baseURL: '/api',
-  headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 })
 
 const refreshClient = axios.create({
   baseURL: '/api',
-  headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 })
 
@@ -40,6 +38,8 @@ const refreshAccessToken = async () => {
   return refreshPromise
 }
 
+export const ensureFreshAccessToken = async () => refreshAccessToken()
+
 const shouldSkipAuthRedirect = (url?: string) =>
   url === '/auth/login' || url === '/auth/register' || url === '/auth/forgot-password' ||
   url === '/auth/verify-otp' || url === '/auth/reset-password'
@@ -48,6 +48,11 @@ api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
+  }
+  if (config.data instanceof FormData) {
+    delete config.headers['Content-Type']
+  } else if (!config.headers['Content-Type']) {
+    config.headers['Content-Type'] = 'application/json'
   }
   return config
 })

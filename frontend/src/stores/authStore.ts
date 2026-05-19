@@ -8,7 +8,14 @@ interface AuthState {
   isAuthenticated: boolean
   hasHydrated: boolean
   setHasHydrated: (hasHydrated: boolean) => void
-  setAuth: (accessToken: string, authInfo: { userId: string; fullName: string; email: string; role: string }) => void
+  setAuth: (accessToken: string, authInfo: {
+    userId: string
+    fullName: string
+    email: string
+    role: string
+    isVerified?: boolean
+    kycStatus?: string
+  }) => void
   setUser: (user: UserResponse) => void
   logout: () => void
 }
@@ -29,13 +36,13 @@ export const useAuthStore = create<AuthState>()(
             fullName: authInfo.fullName,
             email: authInfo.email,
             role: authInfo.role,
-            isVerified: false,
-            kycStatus: 'PENDING',
+            isVerified: authInfo.isVerified ?? false,
+            kycStatus: authInfo.kycStatus ?? 'PENDING',
             createdAt: new Date().toISOString(),
           } as UserResponse,
           isAuthenticated: true,
         }),
-      setUser: (user) => set({ user }),
+      setUser: (user) => set({ user, isAuthenticated: true }),
       logout: () => set({ accessToken: null, user: null, isAuthenticated: false }),
     }),
     {

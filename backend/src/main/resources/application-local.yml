@@ -2,6 +2,11 @@ spring:
   application:
     name: noxh
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
   datasource:
     url: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:5432/postgres
     username: postgres.inxhvlitwjkhizgjpjzz
@@ -49,6 +54,11 @@ jwt:
 
 otp:
   expiry-minutes: 5
+
+imagekit:
+  upload-url: ${IMAGEKIT_UPLOAD_URL:https://upload.imagekit.io/api/v1/files/upload}
+  private-key: ${IMAGEKIT_PRIVATE_KEY:private_SyD9/0zX2PKZBRucfUPcpSCEcRc=}
+  folder: ${IMAGEKIT_FOLDER:/NOXH}
 
 app:
   mail:

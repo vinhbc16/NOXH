@@ -28,6 +28,9 @@ public interface UserMapper {
     @Mapping(target = "incomePerMonth", ignore = true)
     @Mapping(target = "householdSize", ignore = true)
     @Mapping(target = "priorityCategory", ignore = true)
+    @Mapping(target = "cccdFrontUrl", ignore = true)
+    @Mapping(target = "cccdBackUrl", ignore = true)
+    @Mapping(target = "portraitUrl", ignore = true)
     User toUser(RegisterRequest request);
 
     @Mapping(target = "id", expression = "java(user.getId().toString())")
@@ -44,8 +47,9 @@ public interface UserMapper {
     @Mapping(target = "kycStatus", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "cccdNumber", ignore = true)
-    @Mapping(target = "permanentAddress", ignore = true)
+    @Mapping(target = "cccdFrontUrl", ignore = true)
+    @Mapping(target = "cccdBackUrl", ignore = true)
+    @Mapping(target = "portraitUrl", ignore = true)
     void updateUserFromRequest(UserUpdateRequest request, @MappingTarget User user);
 
     @Mapping(target = "id", ignore = true)

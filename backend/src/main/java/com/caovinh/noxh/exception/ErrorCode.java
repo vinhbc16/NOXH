@@ -28,6 +28,10 @@ public enum ErrorCode {
     CCCD_EXISTED(1020, "CCCD number already existed", HttpStatus.BAD_REQUEST),
     PROVINCE_NOT_FOUND(1021, "Province not found", HttpStatus.NOT_FOUND),
     DISTRICT_NOT_FOUND(1022, "District not found", HttpStatus.NOT_FOUND),
+    IMAGE_UPLOAD_FAILED(1023, "Image upload failed", HttpStatus.BAD_GATEWAY),
+    KYC_NOT_VERIFIED(1024, "KYC is not verified", HttpStatus.BAD_REQUEST),
+    REQUIRED_DOCUMENTS_MISSING(1025, "Required documents are missing", HttpStatus.BAD_REQUEST),
+    FILE_TOO_LARGE(1026, "Uploaded file is too large", HttpStatus.PAYLOAD_TOO_LARGE),
     ;
 
     final int code;

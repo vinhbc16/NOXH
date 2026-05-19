@@ -22,6 +22,15 @@ public class KycRequest {
     @NotBlank(message = "FIELD_REQUIRED")
     String cccdNumber;
 
+    @NotBlank(message = "FIELD_REQUIRED")
+    String cccdFrontUrl;
+
+    @NotBlank(message = "FIELD_REQUIRED")
+    String cccdBackUrl;
+
+    @NotBlank(message = "FIELD_REQUIRED")
+    String portraitUrl;
+
     String permanentAddress;
     String province;
     String district;

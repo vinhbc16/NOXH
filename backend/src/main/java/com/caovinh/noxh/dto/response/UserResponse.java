@@ -31,6 +31,9 @@ public class UserResponse {
     Long incomePerMonth;
     Integer householdSize;
     String priorityCategory;
+    String cccdFrontUrl;
+    String cccdBackUrl;
+    String portraitUrl;
     String role;
     Boolean isVerified;
     String kycStatus;

@@ -107,6 +107,7 @@ public class AuthService {
                 .expiresAt(LocalDateTime.now().plusSeconds(refreshableDuration))
                 .build());
 
+        setAccessTokenCookie(response, accessToken);
         setRefreshTokenCookie(response, refreshTokenValue);
 
         return toAuthResponse(user, accessToken);
@@ -185,6 +186,7 @@ public class AuthService {
                 .build());
 
         String newAccessToken = generateAccessToken(user);
+        setAccessTokenCookie(response, newAccessToken);
         setRefreshTokenCookie(response, newRefreshTokenValue);
 
         return toAuthResponse(user, newAccessToken);
@@ -228,7 +230,12 @@ public class AuthService {
         response.addHeader(HttpHeaders.SET_COOKIE, buildCookie("refresh_token", refreshToken, (int) refreshableDuration).toString());
     }
 
+    private void setAccessTokenCookie(HttpServletResponse response, String accessToken) {
+        response.addHeader(HttpHeaders.SET_COOKIE, buildCookie("access_token", accessToken, (int) validDuration).toString());
+    }
+
     private void clearTokenCookies(HttpServletResponse response) {
+        response.addHeader(HttpHeaders.SET_COOKIE, buildCookie("access_token", "", 0).toString());
         response.addHeader(HttpHeaders.SET_COOKIE, buildCookie("refresh_token", "", 0).toString());
     }
 
@@ -256,6 +263,8 @@ public class AuthService {
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .role(user.getRole().name())
+                .isVerified(user.getIsVerified())
+                .kycStatus(user.getKycStatus().name())
                 .build();
     }
 }

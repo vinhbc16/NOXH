@@ -9,6 +9,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 
 import java.util.stream.Collectors;
 
@@ -19,6 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AppException.class)
     ResponseEntity<ApiResponse<Void>> handleAppException(AppException e) {
         ErrorCode errorCode = e.getErrorCode();
+        log.error("Application exception: code={}, message={}", errorCode.getCode(), errorCode.getMessage(), e);
         return ResponseEntity
                 .status(errorCode.getHttpStatus())
                 .body(ApiResponse.<Void>builder()
@@ -54,6 +57,18 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.<Void>builder()
                         .code(ErrorCode.INVALID_FORMAT.getCode())
                         .message(e.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler({MaxUploadSizeExceededException.class, MultipartException.class})
+    ResponseEntity<ApiResponse<Void>> handleMultipartException(Exception e) {
+        ErrorCode errorCode = ErrorCode.FILE_TOO_LARGE;
+        log.error("Multipart upload failed", e);
+        return ResponseEntity
+                .status(errorCode.getHttpStatus())
+                .body(ApiResponse.<Void>builder()
+                        .code(errorCode.getCode())
+                        .message(errorCode.getMessage())
                         .build());
     }
 

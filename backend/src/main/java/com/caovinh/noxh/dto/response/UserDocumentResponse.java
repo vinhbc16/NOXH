@@ -3,18 +3,19 @@ package com.caovinh.noxh.dto.response;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthResponse {
+public class UserDocumentResponse {
 
-    String accessToken;
-    String userId;
-    String fullName;
-    String email;
-    String role;
-    Boolean isVerified;
-    String kycStatus;
+    String id;
+    String documentType;
+    String fileUrl;
+    String fileName;
+    String status;
+    LocalDateTime uploadedAt;
 }

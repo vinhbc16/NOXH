@@ -14,8 +14,10 @@ public class UserUpdateRequest {
 
     String fullName;
     String phoneNumber;
+    String cccdNumber;
     LocalDate dateOfBirth;
     String gender;
+    String permanentAddress;
     String province;
     String district;
     String ward;

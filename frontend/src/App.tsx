@@ -4,7 +4,6 @@ import { Toaster } from 'sonner'
 import LoginPage from '@/pages/auth/LoginPage'
 import RegisterPage from '@/pages/auth/RegisterPage'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
-import KycPage from '@/pages/auth/KycPage'
 import DashboardPage from '@/pages/DashboardPage'
 import ProjectsPage from '@/pages/ProjectsPage'
 import ProfilePage from '@/pages/ProfilePage'
@@ -29,7 +28,6 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/kyc" element={<KycPage />} />
             </Route>
           </Route>
         </Routes>

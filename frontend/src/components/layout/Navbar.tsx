@@ -1,9 +1,8 @@
-import { Link, useLocation } from 'react-router-dom'
-import { Bell, User, LogOut } from 'lucide-react'
-import { useAuthStore } from '@/stores/authStore'
-import { authApi } from '@/api/auth'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Bell, LogOut, User } from 'lucide-react'
 import { toast } from 'sonner'
-import { useNavigate } from 'react-router-dom'
+import { authApi } from '@/api/auth'
+import { useAuthStore } from '@/stores/authStore'
 
 export default function Navbar() {
   const location = useLocation()
@@ -12,8 +11,8 @@ export default function Navbar() {
 
   const navItems = [
     { path: '/dashboard', label: 'Dashboard' },
-    { path: '/profile', label: 'Hồ sơ' },
-    { path: '/projects', label: 'Dự án' },
+    { path: '/profile', label: 'Ho so' },
+    { path: '/projects', label: 'Du an' },
   ]
 
   const handleLogout = async () => {
@@ -22,7 +21,7 @@ export default function Navbar() {
     } finally {
       logout()
       navigate('/login')
-      toast.success('Đã đăng xuất')
+      toast.success('Da dang xuat')
     }
   }
 
@@ -30,7 +29,7 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm flex justify-between items-center px-6 h-16">
       <div className="flex items-center gap-8">
         <Link to="/dashboard" className="text-xl font-bold text-[#001f49] tracking-tight">
-          Bốc thăm NOXH
+          Boc tham NOXH
         </Link>
         <div className="hidden md:flex items-center gap-2">
           {navItems.map((item) => (
@@ -57,12 +56,12 @@ export default function Navbar() {
             <User size={16} className="text-[#669eff]" />
           </div>
           <span className="text-sm font-semibold text-[#001f49] hidden sm:block">
-            {user?.fullName || 'Người dùng'}
+            {user?.fullName || 'Nguoi dung'}
           </span>
           <button
             onClick={handleLogout}
             className="p-2 rounded-full hover:bg-slate-100 transition-colors ml-1"
-            title="Đăng xuất"
+            title="Dang xuat"
           >
             <LogOut size={16} className="text-slate-500" />
           </button>
